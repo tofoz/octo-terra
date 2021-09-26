@@ -41,7 +41,7 @@ impl RetroBitMap {
             new_bit.buffer[i] = Pixel::new(p[0], p[1], p[2], p[3]);
             //self.set_pixel(&Pixel::new(p[0], p[1], p[2], p[3]));
         }
-        return new_bit;
+        new_bit
     }
 
     // todo: add interpulason, etc
@@ -70,20 +70,17 @@ impl RetroBitMap {
     }
 
     pub fn set_pixel(&mut self, x: i32, y: i32, col: &Pixel) {
-        match self
+        if let Some(mut p) = self
             .buffer
             .get_mut(xy_to_index(x, y, self.buff_size.0 as i32) as usize)
         {
-            Some(mut p) => {
-                if x < self.buff_size.0 as i32 && x >= 0 {
-                    p.r = col.r;
-                    p.g = col.g;
-                    p.b = col.b;
-                    p.a = col.a;
-                }
-                //p = color;
+            if x < self.buff_size.0 as i32 && x >= 0 {
+                p.r = col.r;
+                p.g = col.g;
+                p.b = col.b;
+                p.a = col.a;
             }
-            None => {}
+            //p = color;
         }
     }
 
@@ -110,7 +107,7 @@ impl RetroBitMap {
                 let yl = remap(y, rec.1, rec.1 + rec.3, rec.1 + rec.3, rec.1);
                 let p = match col0 {
                     Some(c) => {
-                        img.buffer[xy_to_index(x as usize, y as usize, img.buff_size.0)].blend(&c)
+                        img.buffer[xy_to_index(x as usize, y as usize, img.buff_size.0)].blend(c)
                     }
                     None => img.buffer[xy_to_index(x as usize, y as usize, img.buff_size.0)],
                 };
@@ -148,13 +145,10 @@ impl RetroBitMap {
                     .buffer
                     .get(xy_to_index(x as usize, y as usize, self.buff_size.0));
 
-                match p {
-                    Some(p) => {
-                        if p.a > 15 {
-                            nbm.set_pixel(x - rec.0, yl - rec.1, &p);
-                        }
+                if let Some(p) = p {
+                    if p.a > 15 {
+                        nbm.set_pixel(x - rec.0, yl - rec.1, p);
                     }
-                    None => {}
                 }
             }
         }

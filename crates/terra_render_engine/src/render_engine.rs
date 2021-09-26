@@ -389,7 +389,7 @@ impl RenderEngine {
                                 }
                             }
                         }
-                        Nome => {
+                        None => {
                             let norm = Vec4::new(
                                 nx.evaluate(p.0, p.1),
                                 ny.evaluate(p.0, p.1),
@@ -1347,7 +1347,7 @@ pub fn draw_line_pl(xa: i32, ya: i32, xb: i32, yb: i32) -> (Vec<(i32, i32)>, u8)
                 }
                 p = p + 2 * dy - 2 * dx;
             } else {
-                p = p + 2 * dy;
+                p += 2 * dy;
             }
         }
     }
@@ -1369,17 +1369,13 @@ pub fn draw_line_pl(xa: i32, ya: i32, xb: i32, yb: i32) -> (Vec<(i32, i32)>, u8)
 
             while y < y2 {
                 point_list.push((x, y));
-                y = y + 1;
-                if p >= 0 {
-                    if m >= 1 {
-                        x = x + 1;
-                    } else {
-                        x = x - 1;
-                    }
-                    p = p + 2 * dx - 2 * dy;
+                y += 1;
+                p = if p >= 0 {
+                    x = if m >= 1 { x + 1 } else { x - 1 };
+                    p + 2 * dx - 2 * dy
                 } else {
-                    p = p + 2 * dx;
-                }
+                    p + 2 * dx
+                };
             }
         }
     }
