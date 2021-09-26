@@ -150,8 +150,8 @@ pub fn box_intersect(
     );
     let t1 = m * (-ro + s * *rad);
     let t2 = m * (-ro - s * *rad);
-    let tn = max3(t1.x, t1.y, t1.z);
-    let tf = min3(t2.x, t2.y, t2.z);
+    let tn = max!(t1.x, t1.y, t1.z);
+    let tf = min!(t2.x, t2.y, t2.z);
 
     if tn > tf || tf < 0.0 {
         return false;

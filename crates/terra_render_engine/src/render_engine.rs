@@ -312,17 +312,17 @@ impl RenderEngine {
         }
 
         // Compute triangle draw bounding box
-        let mut min_x = min3(v0.point.x as i32, v1.point.x as i32, v2.point.x as i32);
-        let mut min_y = min3(v0.point.y as i32, v1.point.y as i32, v2.point.y as i32);
-        let mut max_x = max3(v0.point.x as i32, v1.point.x as i32, v2.point.x as i32);
-        let mut max_y = max3(v0.point.y as i32, v1.point.y as i32, v2.point.y as i32);
+        let mut min_x = min!(v0.point.x as i32, v1.point.x as i32, v2.point.x as i32);
+        let mut min_y = min!(v0.point.y as i32, v1.point.y as i32, v2.point.y as i32);
+        let mut max_x = max!(v0.point.x as i32, v1.point.x as i32, v2.point.x as i32);
+        let mut max_y = max!(v0.point.y as i32, v1.point.y as i32, v2.point.y as i32);
 
         // Draw Clip against screen bounds
 
-        min_x = max(min_x, 0);
-        min_y = max(min_y, 0);
-        max_x = min(max_x, self.buff_size.0 as i32 - 1);
-        max_y = min(max_y, self.buff_size.1 as i32 - 1);
+        min_x = max!(min_x, 0);
+        min_y = max!(min_y, 0);
+        max_x = min!(max_x, self.buff_size.0 as i32 - 1);
+        max_y = min!(max_y, self.buff_size.1 as i32 - 1);
 
         let e0 = EdgeEquation::new(&v0.point.xyz(), &v1.point.xyz());
         let e1 = EdgeEquation::new(&v1.point.xyz(), &v2.point.xyz());

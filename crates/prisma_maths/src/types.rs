@@ -13,25 +13,6 @@ use core::{
 
 use glam::Vec4;
 
-struct foo {
-    v: f32,
-}
-
-struct bar {
-    x: f32,
-    y: f32,
-}
-
-impl Add<bar> for foo {
-    type Output = foo;
-
-    fn add(self, rhs: bar) -> Self::Output {
-        foo {
-            v: self.v + rhs.x + rhs.y,
-        }
-    }
-}
-
 #[derive(Copy, Clone, Eq, PartialEq, Debug)]
 pub struct Vector3<T> {
     pub x: T,
