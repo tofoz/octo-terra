@@ -1379,7 +1379,6 @@ pub fn draw_line_pl(xa: i32, ya: i32, xb: i32, yb: i32) -> (Vec<(i32, i32)>, u8)
                     p = p + 2 * dx - 2 * dy;
                 } else {
                     p = p + 2 * dx;
-                    x = x;
                 }
             }
         }
