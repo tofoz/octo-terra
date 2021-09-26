@@ -68,7 +68,6 @@ mod tests {
     //use num_traits::Pow;
     use types::Vector3;
 
-    
     #[test]
     fn remap_test_i32() {
         assert_eq!(remap(50, 0, 100, 200, 400), 300);

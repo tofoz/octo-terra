@@ -11,7 +11,7 @@ use core::{
     ops::{Add, Div, Mul, Sub},
 };
 
-use glam::{Vec4};
+use glam::Vec4;
 
 struct foo {
     v: f32,
@@ -160,12 +160,7 @@ pub struct Rect<T> {
 
 impl<T: Mul<Output = T> + PartialOrd + Copy + Add<Output = T> + Ord + Sub<Output = T>> Rect<T> {
     pub fn new(x: T, y: T, w: T, h: T) -> Rect<T> {
-        Rect {
-            x,
-            y,
-            w,
-            h,
-        }
+        Rect { x, y, w, h }
     }
 
     pub fn get_wight(&self) -> T {
