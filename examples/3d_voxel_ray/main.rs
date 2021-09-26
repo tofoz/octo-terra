@@ -130,10 +130,11 @@ fn main() {
             Event::WindowEvent {
                 window_id: _,
                 event,
-            } => match event {
-                WindowEvent::Resized(s) => pixels.resize_surface(s.width, s.height),
-                _ => {}
-            },
+            } => {
+                if let WindowEvent::Resized(s) = event {
+                    pixels.resize_surface(s.width, s.height)
+                }
+            }
             Event::DeviceEvent {
                 device_id: _,
                 event: _,
@@ -147,25 +148,22 @@ fn main() {
                 let mouse_sens = 0.04 * render_timer.delta_time as f32;
 
                 let mut m_dif = (0.0, 0.0);
-                match input.mouse() {
-                    Some(pos) => {
-                        if (pos.0 * pos.1) != 0.0 {
-                            m_dif.0 = m_pos.0 - pos.0;
-                            m_dif.1 = m_pos.1 - pos.1;
+                if let Some(pos) = input.mouse() {
+                    if (pos.0 * pos.1) != 0.0 {
+                        m_dif.0 = m_pos.0 - pos.0;
+                        m_dif.1 = m_pos.1 - pos.1;
 
-                            m_pos = (
-                                (n_window_size.width as f32 / 2.).floor(),
-                                (n_window_size.height as f32 / 2.).floor(),
-                            );
-                            window
-                                .set_cursor_position(Position::Physical(PhysicalPosition::new(
-                                    n_window_size.width as i32 / 2,
-                                    n_window_size.height as i32 / 2,
-                                )))
-                                .unwrap();
-                        }
+                        m_pos = (
+                            (n_window_size.width as f32 / 2.).floor(),
+                            (n_window_size.height as f32 / 2.).floor(),
+                        );
+                        window
+                            .set_cursor_position(Position::Physical(PhysicalPosition::new(
+                                n_window_size.width as i32 / 2,
+                                n_window_size.height as i32 / 2,
+                            )))
+                            .unwrap();
                     }
-                    None => {}
                 }
 
                 cam_rot.0 += m_dif.0 * mouse_sens;
@@ -322,7 +320,7 @@ fn main() {
                 // ray trace
                 if true {
                     let pm = Mat4::from_translation(Vec3::new(0., 0., 4.));
-                    let tm = pm * Mat4::mul_scalar(&mut Mat4::identity(), 1.0);
+                    let tm = pm * Mat4::mul_scalar(&Mat4::identity(), 1.0);
                     //tm = Mat4::from_axis_angle(
                     //    Vec3::new(0., 1., 0.).normalize(),
                     //    (33.0 as f32).to_radians(),
@@ -377,7 +375,6 @@ fn main() {
             }
             Event::RedrawEventsCleared => {}
             Event::LoopDestroyed => {}
-            _ => {}
         }
 
         //
