@@ -1,0 +1,17 @@
+[package]
+name = "terra_render_engine"
+version = "0.1.0"
+authors = ["tofox <tristen.rometti.olson@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+
+[dependencies]
+prisma_maths = { path = "../prisma_maths", version = "0.1.0" }
+rayon = "1.5.1"
+image = "0.23.12"
+dot_vox = "4.1.0"
+
+[dependencies.gltf]
+version = "0.15.2"
