@@ -3,9 +3,9 @@ name = "octo-terra"
 version = "0.0.1"
 authors = ["tofoz"]
 edition = "2018"
+resolver = "2"
 
 [workspace]
-
 members = ["crates/*"]
 
 

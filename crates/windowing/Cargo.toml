@@ -3,6 +3,7 @@ name = "windowing"
 version = "0.1.0"
 authors = ["tofoz <40554706+tofoz@users.noreply.github.com>"]
 edition = "2018"
+resolver = "2"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
